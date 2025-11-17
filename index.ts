@@ -13,9 +13,12 @@ import type resultType from './types/result';
 import type { Players } from './types/room';
 
 const app = express();
+
+const production = process.env.NODE_ENV === 'production';
+
 app.use(
     cors({
-        origin: process.env.CLIENT_URL,
+        origin: [process.env.CLIENT_URL as string, 'http://localhost:5173'],
         methods: ['GET', 'POST'],
         credentials: true,
     })
@@ -24,7 +27,7 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
     cors: {
-        origin: process.env.CLIENT_URL,
+        origin: [process.env.CLIENT_URL as string, 'http://localhost:5173'],
         methods: ['GET', 'POST'],
     },
 });
