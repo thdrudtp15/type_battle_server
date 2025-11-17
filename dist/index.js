@@ -2,19 +2,20 @@ import { Server } from 'socket.io';
 import express from 'express';
 import cors from 'cors';
 import { createServer } from 'http';
-import { getSentence } from './utils/getSentence';
-import { getPointsAndAccuracy } from './utils/getPoints';
-import { COUNTDOWN_TIME, MATCH_PLAY_TIME } from './constants/constants';
+import 'dotenv/config';
+import { getSentence } from './utils/getSentence.js';
+import { getPointsAndAccuracy } from './utils/getPoints.js';
+import { COUNTDOWN_TIME, MATCH_PLAY_TIME } from './constants/constants.js';
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.CLIENT_URL,
     methods: ['GET', 'POST'],
     credentials: true,
 }));
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: 'http://localhost:5173',
+        origin: process.env.CLIENT_URL,
         methods: ['GET', 'POST'],
     },
 });

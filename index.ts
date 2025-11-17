@@ -2,21 +2,20 @@ import { Server, Socket } from 'socket.io';
 import express from 'express';
 import cors from 'cors';
 import { createServer } from 'http';
+import 'dotenv/config';
 
-import { getSentence } from './utils/getSentence';
-import { getPointsAndAccuracy } from './utils/getPoints';
-import { COUNTDOWN_TIME, MATCH_PLAY_TIME } from './constants/constants';
+import { getSentence } from './utils/getSentence.js';
+import { getPointsAndAccuracy } from './utils/getPoints.js';
+import { COUNTDOWN_TIME, MATCH_PLAY_TIME } from './constants/constants.js';
 
 import type roomType from './types/room';
 import type resultType from './types/result';
 import type { Players } from './types/room';
 
-const production = process.env.NODE_ENV === 'production';
-
 const app = express();
 app.use(
     cors({
-        origin: production ? process.env.CLIENT_URL || 'http://localhost:5173' : 'http://localhost:5173',
+        origin: process.env.CLIENT_URL,
         methods: ['GET', 'POST'],
         credentials: true,
     })
@@ -25,7 +24,7 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
     cors: {
-        origin: production ? process.env.CLIENT_URL || 'http://localhost:5173' : 'http://localhost:5173',
+        origin: process.env.CLIENT_URL,
         methods: ['GET', 'POST'],
     },
 });

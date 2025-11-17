@@ -4,7 +4,7 @@ import {
     WISE_SAYINGS,
     STORY_SENTENCES,
     ANIMAL_SENTENCES,
-} from '../constants/sentences';
+} from '../constants/sentences.js';
 
 export const getSentence = () => {
     const sentences = [
